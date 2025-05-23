@@ -39,11 +39,10 @@ public class OverlayService extends Service {
         for (String key : extras.keySet()) {
           Object value = extras.get(key);
           String s = "Extra key: " + key + ", value: " + value;
-          Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
           Log.d("EXTRAS", s);
         }
       } else {
-        Toast.makeText(getApplicationContext(), "Extra == Null", Toast.LENGTH_SHORT).show();
+        Log.d("EXTRAS", "Extra == Null");
       }
     }
   }
@@ -104,7 +103,6 @@ public class OverlayService extends Service {
     int delayToStart = intent != null ? intent.getIntExtra(Utilities.EXTRA_LINE_DELAY, Utilities.DEFAULT_LINE_DELAY) : Utilities.DEFAULT_LINE_DELAY;
 
 
-    Toast.makeText(getApplicationContext(), "lineLocation ==> " + lineLocation, Toast.LENGTH_SHORT).show();
     int lineLocationOnXAxis = (int) (lineLocation * Utilities.getDisplayLastX(getApplicationContext()));
 
     if (lineNumbers != PrankSettings.RANDOM_LINES) {
@@ -112,11 +110,9 @@ public class OverlayService extends Service {
     } else {
       int randomLines = Utilities.getRandomInt(7);
       int screenWidth = Utilities.getDisplayWidth(getApplicationContext());
-      Toast.makeText(getApplicationContext(), "Width ==> " + screenWidth, Toast.LENGTH_SHORT).show();
 
-      int randomLineLocation = Utilities.getRandomInt(screenWidth);
-      randomLineLocation *= 0.80f;
-      Toast.makeText(getApplicationContext(), "Random lines selected ==> " + randomLines, Toast.LENGTH_SHORT).show();
+      int eightyPercentScreenWidth = (int) (screenWidth * 0.80f);
+      int randomLineLocation = Utilities.getRandomInt(eightyPercentScreenWidth);
       showMultipleOverlays(Utilities.getRandomColors(randomLines), Utilities.getSameWidth(randomLines), Utilities.getRandomLocations(randomLines, randomLineLocation), delayToStart);
     }
     return START_NOT_STICKY;
